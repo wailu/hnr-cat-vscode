@@ -44,13 +44,11 @@ class App extends React.Component {
   }
 
   changeCatMood(catMood) {
-    console.log('cat mood called', catMood)
     this.setState({catMood})
 
     // we want to only temporarily change the mood
     setTimeout(
-      () => this.setState({catMood: 'idle'}),
-      5000)
+      () => catMood !== 'eat' ? this.setState({catMood: 'idle'}) : this.setState({catMood: 'idle2'}), 5000)
 
     // reset sleep timer
     this.setSleepTimeout()
