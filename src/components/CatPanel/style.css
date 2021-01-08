@@ -1,7 +1,7 @@
 .cat-panel {
-  /* background-image: url('./assets/backgrounds/test.png'); */
   background-size: cover;
   max-width: 100%;
+  transition: background 0.5s ease-in-out;
 }
 
 .cat-image {

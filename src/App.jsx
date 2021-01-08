@@ -8,7 +8,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // below are defaults!!
       background: 'beach',
       catMood: 'idle'
     };
@@ -16,12 +15,22 @@ class App extends React.Component {
     this.changeCatMood = this.changeCatMood.bind(this)
   }
 
-  changeBackground(background) {
+  changeBackground() {
+    const backgrounds = ['beach', 'backyard', 'park', 'snowvillage']
+    const nextIndex = (backgrounds.findIndex(bg => bg === this.state.background) + 1) % backgrounds.length
+    const background = backgrounds[nextIndex]
+    
     this.setState({background})
   }
 
   changeCatMood(catMood) {
-    console.log('Change cat mood clicked')
+    this.setState({catMood})
+
+    // we want to only temporarily change the mood
+    setTimeout(
+      () => this.setState({catMood: 'idle'}),
+      5000
+    )
   }
 
   render() {

@@ -1,19 +1,32 @@
 import * as React from 'react';
 import './style.css';
 // cat moods
-import testCat from './assets/catMoods/catFace1.png'
+import catIdle from './assets/catMoods/babycat-idle.png'
+import catEat from './assets/catMoods/babycat-eat.png'
+import catPat from './assets/catMoods/babycat-pat.png'
+import catSleep from './assets/catMoods/babycat-sleep.png'
+
 // cat backgrounds
-import beachBg from './assets/backgrounds/test.png'
+import beachBg from './assets/backgrounds/beach.png'
+import backyardBg from './assets/backgrounds/backyard.png'
+import parkBg from './assets/backgrounds/park.png'
+import snowvillageBg from './assets/backgrounds/snowvillage.png'
 
 class CatPanel extends React.Component {
 
   render() {
     const mood = ({
-        'idle': testCat
+        'idle': catIdle,
+        'eat': catEat,
+        'pat': catPat,
+        'sleep': catSleep
     })[this.props.catMood]
 
     const background = ({
-      'beach': beachBg
+      'beach': beachBg,
+      'backyard': backyardBg,
+      'park': parkBg,
+      'snowvillage': snowvillageBg
     })[this.props.background]
 
     return (
