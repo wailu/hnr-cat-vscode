@@ -4,7 +4,7 @@
   "engines": {
     "vscode": "^1.50.0"
   },
-  "publisher": "wai & gan",
+  "publisher": "vscat",
   "activationEvents": [
     "onView:VSCat.catView",
     "onCommand:react-webview.start"
