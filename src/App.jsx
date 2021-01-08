@@ -28,7 +28,7 @@ class App extends React.Component {
     this.state = {
       background: 'beach',
       catMood: 'idle',
-      sleepTimeoutRef: () => 1
+      sleepTimeoutRef: null
     };
     this.changeBackground = this.changeBackground.bind(this)
     this.changeCatMood = throttle(this.changeCatMood.bind(this), 5000, { 'trailing': false })
