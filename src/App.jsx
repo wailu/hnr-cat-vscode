@@ -6,6 +6,17 @@ import CatControls from './components/CatControls'
 
 class App extends React.Component {
 
+  componentDidMount() {
+    console.log('component did mount')
+    this.setState({background: 'snowvillage'})
+    // pure javascript to listen to events coming from vscode
+    // we then call methods here to manipulate state data
+    window.addEventListener('message', event => {
+      const message = event.data;
+      this.setState({background: 'park'})
+    })
+  }
+
   constructor(props) {
     super(props);
     this.state = {
