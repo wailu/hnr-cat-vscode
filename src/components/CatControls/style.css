@@ -1,0 +1,9 @@
+.cat-controls {
+  display: flex;
+  flex-direction: column;
+}
+
+.control-button {
+  width: 100%;
+  margin: 3px 0;
+}

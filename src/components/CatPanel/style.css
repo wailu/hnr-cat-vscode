@@ -1,8 +1,9 @@
 .cat-panel {
-  background-image: url('./backgrounds/test.png');
+  /* background-image: url('./assets/backgrounds/test.png'); */
+  background-size: cover;
+  max-width: 100%;
 }
 
 .cat-image {
-  /* width: 100vw; */
-  width: 30vw;
+  width: 100%;
 }
