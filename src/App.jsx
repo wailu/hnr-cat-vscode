@@ -21,14 +21,14 @@ class App extends React.Component {
   }
 
   changeCatMood(catMood) {
-    this.setState({catMood})
+    console.log('Change cat mood clicked')
   }
 
   render() {
     return (
       <div className="app">
         <CatPanel background={this.state.background} catMood={this.state.catMood} />
-        <CatControls />
+        <CatControls changeBackground={this.changeBackground} changeCatMood={this.changeCatMood} />
       </div>
     );
   }
