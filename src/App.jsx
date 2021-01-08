@@ -14,8 +14,11 @@ class App extends React.Component {
       if (message.type === 'userTyping') {
         // user types, cat types too
         this.setState({catMood: 'active'})
-        // set up cat to sleep if user inactive
-        this.setSleepTimeout()
+
+        if (window.vscat_timeoutRef) {
+          clearTimeout(window.vscat_timeoutRef)
+        }
+        window.vscat_timeoutRef = setTimeout(() => this.goToIdle(), 60000)
       }
     }, 30000, { 'trailing': false }))
 
@@ -28,7 +31,6 @@ class App extends React.Component {
     this.state = {
       background: 'beach',
       catMood: 'idle',
-      sleepTimeoutRef: null
     };
     this.changeBackground = this.changeBackground.bind(this)
     this.changeCatMood = throttle(this.changeCatMood.bind(this), 5000, { 'trailing': false })
@@ -54,16 +56,17 @@ class App extends React.Component {
     this.setSleepTimeout()
   }
 
+  goToIdle() {
+    this.setState({catMood: 'idle'})
+    this.setSleepTimeout();
+  }
+
   setSleepTimeout() {
-    if (this.state.sleepTimeoutRef) {
-      clearTimeout(this.state.sleepTimeoutRef)
+    if (window.vscat_timeoutRef) {
+      clearTimeout(window.vscat_timeoutRef)
     }
 
-    const sleepTimeoutRef = setTimeout(
-      () => this.setState({catMood: 'sleep'}), 900000
-    )
-
-    this.setState({sleepTimeoutRef})
+    window.vscat_timeoutRef = setTimeout(() => this.setState({catMood: 'sleep'}), 900000)
   }
 
   render() {
