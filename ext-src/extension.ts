@@ -7,13 +7,17 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(
 		vscode.window.registerWebviewViewProvider(CatViewProvider.viewType, provider));
+	
+	context.subscriptions.push(
+		vscode.workspace.onDidChangeTextDocument(() => provider._view?.webview.postMessage({ type: 'userTyping' }))
+	)
 }
 
 class CatViewProvider implements vscode.WebviewViewProvider {
 
 	public static readonly viewType = 'VSCat.catView';
 
-	private _view?: vscode.WebviewView;
+	public _view?: vscode.WebviewView;
 
 	private readonly _extensionPath: string;
 
