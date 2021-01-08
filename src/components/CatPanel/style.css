@@ -1,9 +1,24 @@
 .cat-panel {
+  /* background-size: cover; */
   background-size: cover;
-  max-width: 100%;
   transition: background 0.5s ease-in-out;
+  width: 400px;
+  height: 300px;
+  position: relative;
 }
 
 .cat-image {
-  width: 100%;
+  width: 50%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+@media screen and (max-width: 400px) {
+  .cat-panel {
+    width: 100vw;
+  }
 }

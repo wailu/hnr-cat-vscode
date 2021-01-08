@@ -5,6 +5,7 @@ import catIdle from './assets/catMoods/babycat-idle.png'
 import catEat from './assets/catMoods/babycat-eat.png'
 import catPat from './assets/catMoods/babycat-pat.png'
 import catSleep from './assets/catMoods/babycat-sleep.png'
+import catActive from './assets/catMoods/babycat-active.png'
 
 // cat backgrounds
 import beachBg from './assets/backgrounds/beach.png'
@@ -19,7 +20,8 @@ class CatPanel extends React.Component {
         'idle': catIdle,
         'eat': catEat,
         'pat': catPat,
-        'sleep': catSleep
+        'sleep': catSleep,
+        'active': catActive
     })[this.props.catMood]
 
     const background = ({

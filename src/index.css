@@ -3,13 +3,3 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
-
-.app {
-  max-width: 425px;
-}
-
-@media screen and (max-width: 425px) {
-  .app {
-    width: 100vw;
-  }
-}

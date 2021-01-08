@@ -7,24 +7,30 @@ import CatControls from './components/CatControls'
 class App extends React.Component {
 
   componentDidMount() {
-    console.log('component did mount')
-    this.setState({background: 'snowvillage'})
     // pure javascript to listen to events coming from vscode
-    // we then call methods here to manipulate state data
-    window.addEventListener('message', event => {
+    window.addEventListener('message', throttle(event => {
       const message = event.data;
-      this.setState({background: 'park'})
-    })
+
+      if (message.type === 'userTyping') {
+        // user types, cat types too
+        this.setState({catMood: 'active'})
+      }
+    }, 30000, { 'trailing': false }))
+
+    // set up cat to sleep if user inactive
+    this.setSleepTimeout()
   }
 
   constructor(props) {
     super(props);
     this.state = {
       background: 'beach',
-      catMood: 'idle'
+      catMood: 'idle',
+      sleepTimeoutRef: () => 1
     };
     this.changeBackground = this.changeBackground.bind(this)
     this.changeCatMood = throttle(this.changeCatMood.bind(this), 5000, { 'trailing': false })
+    this.setSleepTimeout = this.setSleepTimeout.bind(this)
   }
 
   changeBackground() {
@@ -43,6 +49,21 @@ class App extends React.Component {
     setTimeout(
       () => this.setState({catMood: 'idle'}),
       5000)
+
+    // reset sleep timer
+    this.setSleepTimeout()
+  }
+
+  setSleepTimeout() {
+    if (this.state.sleepTimeoutRef) {
+      clearTimeout(this.state.sleepTimeoutRef)
+    }
+
+    const sleepTimeoutRef = setTimeout(
+      () => this.setState({catMood: 'sleep'}), 10000
+    )
+
+    this.setState({sleepTimeoutRef})
   }
 
   render() {
