@@ -1,4 +1,5 @@
 import * as React from 'react';
+import throttle from 'lodash.throttle';
 import './App.css';
 import CatPanel from './components/CatPanel'
 import CatControls from './components/CatControls'
@@ -12,7 +13,7 @@ class App extends React.Component {
       catMood: 'idle'
     };
     this.changeBackground = this.changeBackground.bind(this)
-    this.changeCatMood = this.changeCatMood.bind(this)
+    this.changeCatMood = throttle(this.changeCatMood.bind(this), 5000, { 'trailing': false })
   }
 
   changeBackground() {
@@ -24,13 +25,13 @@ class App extends React.Component {
   }
 
   changeCatMood(catMood) {
+    console.log('cat mood called', catMood)
     this.setState({catMood})
 
     // we want to only temporarily change the mood
     setTimeout(
       () => this.setState({catMood: 'idle'}),
-      5000
-    )
+      5000)
   }
 
   render() {
