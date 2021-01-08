@@ -3,88 +3,68 @@ import * as vscode from 'vscode';
 
 export function activate(context: vscode.ExtensionContext) {
 
-	context.subscriptions.push(vscode.commands.registerCommand('react-webview.start', () => {
-		ReactPanel.createOrShow(context.extensionPath);
-	}));
+	const provider = new CatViewProvider(context.extensionPath, context.extensionUri);
+
+	context.subscriptions.push(
+		vscode.window.registerWebviewViewProvider(CatViewProvider.viewType, provider));
 }
 
-/**
- * Manages react webview panels
- */
-class ReactPanel {
-	/**
-	 * Track the currently panel. Only allow a single panel to exist at a time.
-	 */
-	public static currentPanel: ReactPanel | undefined;
+class CatViewProvider implements vscode.WebviewViewProvider {
 
-	private static readonly viewType = 'react';
+	public static readonly viewType = 'VSCat.catView';
 
-	private readonly _panel: vscode.WebviewPanel;
+	private _view?: vscode.WebviewView;
+
 	private readonly _extensionPath: string;
-	private _disposables: vscode.Disposable[] = [];
 
-	public static createOrShow(extensionPath: string) {
-		const column = vscode.window.activeTextEditor ? vscode.window.activeTextEditor.viewColumn : undefined;
-
-		// If we already have a panel, show it.
-		// Otherwise, create a new panel.
-		if (ReactPanel.currentPanel) {
-			ReactPanel.currentPanel._panel.reveal(column);
-		} else {
-			ReactPanel.currentPanel = new ReactPanel(extensionPath, column || vscode.ViewColumn.One);
-		}
+	constructor(
+		extensionPath: string,
+		private readonly _extensionUri: vscode.Uri,
+	) {
+		this._extensionPath = extensionPath;
 	}
 
-	private constructor(extensionPath: string, column: vscode.ViewColumn) {
-		this._extensionPath = extensionPath;
+	public resolveWebviewView(
+		webviewView: vscode.WebviewView,
+		context: vscode.WebviewViewResolveContext,
+		_token: vscode.CancellationToken,
+	) {
+		this._view = webviewView;
 
-		// Create and show a new webview panel
-		this._panel = vscode.window.createWebviewPanel(ReactPanel.viewType, "React", column, {
-			// Enable javascript in the webview
+		webviewView.webview.options = {
+			// Allow scripts in the webview
 			enableScripts: true,
 
-			// And restric the webview to only loading content from our extension's `media` directory.
 			localResourceRoots: [
-				vscode.Uri.file(path.join(this._extensionPath, 'build'))
+				this._extensionUri
 			]
+		};
+
+		webviewView.webview.html = this._getHtmlForWebview();
+
+		webviewView.webview.onDidReceiveMessage(data => {
+			switch (data.type) {
+				case 'colorSelected':
+					{
+						vscode.window.activeTextEditor?.insertSnippet(new vscode.SnippetString(`#${data.value}`));
+						break;
+					}
+			}
 		});
-		
-		// Set the webview's initial html content 
-		this._panel.webview.html = this._getHtmlForWebview();
-
-		// Listen for when the panel is disposed
-		// This happens when the user closes the panel or when the panel is closed programatically
-		this._panel.onDidDispose(() => this.dispose(), null, this._disposables);
-
-		// Handle messages from the webview
-		this._panel.webview.onDidReceiveMessage(message => {
-			switch (message.command) {
-				case 'alert':
-					vscode.window.showErrorMessage(message.text);
-					return;
-			}
-		}, null, this._disposables);
 	}
 
-	public doRefactor() {
-		// Send a message to the webview webview.
-		// You can send any JSON serializable data.
-		this._panel.webview.postMessage({ command: 'refactor' });
-	}
+	// public addColor() {
+	// 	if (this._view) {
+	// 		this._view.show?.(true); // `show` is not implemented in 1.49 but is for 1.50 insiders
+	// 		this._view.webview.postMessage({ type: 'addColor' });
+	// 	}
+	// }
 
-	public dispose() {
-		ReactPanel.currentPanel = undefined;
-
-		// Clean up our resources
-		this._panel.dispose();
-
-		while (this._disposables.length) {
-			const x = this._disposables.pop();
-			if (x) {
-				x.dispose();
-			}
-		}
-	}
+	// public clearColors() {
+	// 	if (this._view) {
+	// 		this._view.webview.postMessage({ type: 'clearColors' });
+	// 	}
+	// }
 
 	private _getHtmlForWebview() {
 		const manifest = require(path.join(this._extensionPath, 'build', 'asset-manifest.json'));

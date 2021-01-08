@@ -6,16 +6,21 @@
   },
   "publisher": "rebornix",
   "activationEvents": [
+    "onView:VSCat.catView",
     "onCommand:react-webview.start"
   ],
   "main": "./build/ext-src/extension.js",
   "contributes": {
+    "views": {
+			"explorer": [
+				{
+					"type": "webview",
+					"id": "VSCat.catView",
+					"name": "VSCat"
+				}
+			]
+		},
     "commands": [
-      {
-        "command": "react-webview.start",
-        "title": "Start React Webview",
-        "category": "React"
-      }
     ]
   },
   "dependencies": {
