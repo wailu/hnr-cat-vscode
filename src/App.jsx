@@ -14,6 +14,8 @@ class App extends React.Component {
       if (message.type === 'userTyping') {
         // user types, cat types too
         this.setState({catMood: 'active'})
+        // set up cat to sleep if user inactive
+        this.setSleepTimeout()
       }
     }, 30000, { 'trailing': false }))
 
@@ -60,7 +62,7 @@ class App extends React.Component {
     }
 
     const sleepTimeoutRef = setTimeout(
-      () => this.setState({catMood: 'sleep'}), 10000
+      () => this.setState({catMood: 'sleep'}), 900000
     )
 
     this.setState({sleepTimeoutRef})
