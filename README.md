@@ -1,34 +1,58 @@
-# VSCode Webview React
+# VS Cat
+![vscat](Promo-Assets/VSCat.png "VSCat")
 
-This project was bootstrapped with 
-* [Create React App](https://github.com/facebookincubator/create-react-app)
-* [Create React App TypeScript](https://github.com/wmonk/create-react-app-typescript)
-* [VSCode Extension Webview Sample](https://github.com/Microsoft/vscode-extension-samples/tree/master/webview-sample)
+VS Cat, short for Visual Studio Cat, is an interactive plugin for Visual Studio Code, where users can play with SoCCat (School of Computing Cat) while they use Visual Studio Code to write programs. Features include:
+- Feeding SoCCat
+- Patting SoCCat
+- Bringing SoCCat out to different places
+- Changing state from Idle, Active, and Sleep, depending on whether user is actively typing code, idling for a while, or inactive in VS Code.
 
-[The webview API](https://code.visualstudio.com/docs/extensions/webview) allows extensions to create customizable views within VSCode. Single Page Application frameworks are perfect fit for this use case. However, to make modern JavaScript frameworks/toolchains appeal to VSCode webview API's [security best practices](https://code.visualstudio.com/docs/extensions/webview#_security) requires some knowledge of both the bundling framework you are using and how VSCode secures webview. This project aims to provide an out-of-box starter kit for Create React App and TypeScript in VSCode's webview.
+# Functionalities
 
-## Development
+### Cat Idle (When you stop typing codes for 1 minute):
+![animation-idle](Promo-Assets/animation-idle.png "Idle Cat")
 
-Run following commands in the terminal
+### Cat Active (When you start typing codes):
+![animation-active](Promo-Assets/animation-active.png "Active Cat")
 
-```shell
-yarn install
-yarn run build
-```
-And then press F5, in Extension Development Host session, run `Start React Webview` command from command palette.
+### Cat Sleep (When you are in Idle for more than 15 minutes):
+![animation-sleep](Promo-Assets/animation-sleep.png "Sleep Cat")
 
-## Under the hood
+### Feeding the Cat:
+![animation-eating](Promo-Assets/animation-eating2.png "Feeding the Cat")
 
-Things we did on top of Create React App TypeScript template
+### Patting the Cat:
+![animation-patting](Promo-Assets/animation-patting.png "Patting the Cat")
 
-* We inline `index.html` content in `ext-src/extension.ts` when creating the webview
-* We set strict security policy for accessing resources in the webview.
-  * Only resources in `/build` can be accessed
-  * Onlu resources whose scheme is `vscode-resource` can be accessed.
-* For all resources we are going to use in the webview, we change their schemes to `vscode-resource`
-* Since we only allow local resources, absolute path for styles/images (e.g., `/static/media/logo.svg`) will not work. We add a `.env` file which sets `PUBLIC_URL` to `./` and after bundling, resource urls will be relative.
-* We add baseUrl `<base href="${vscode.Uri.file(path.join(this._extensionPath, 'build')).with({ scheme: 'vscode-resource' })}/">` and then all relative paths work.
+### Bringing the Cat out to tour:
+Backyard, Snowy Village, Park, Beach
+![destinations](Promo-Assets/destinations.png "Different Destinations")
+
+## Inspiration
+As CS students ourselves, we use Visual Studio Code frequently. Hence, we wanted to make the VS Code environment more lively, instead of just staring at our boring codes all day. As such, we came up with an idea of adopting a Virtual Pet inside VS Code, where we can play with the Pet. Ideally, the Pet should also get hungry, grow in size, and provide feedback when we play with it (much like a Virtual Pet game). The most natural way to realize this idea is to create a VS Code Plugin so that we can see our Cat inside the IDE environment itself. We have decided to use Cat, specifically SoCCat, School of Computing Mascot Cat, as we think SoCCat is cute (who wouldn't love SoCCat?).
+
+## Note
+This is a Hackathon Project created in 24 hours for NUS HacknRoll 2021 entry. All codes (except forked boiler template for create-react-app in VS Code Plugin) are written from scratch during the hackathon. All graphic assets, including all Cats animations and backgrounds, are drawn from scratch during the Hackathon itself.
+
+Author:
+- Gan Chin Yao
+- Lim Wai Lun
 
 ## Limitations
+As this Project was created in 24 hours, bugs may be present.
 
-Right now you can only run production bits (`yarn run build`) in the webview, how to make dev bits work (webpack dev server) is still unknown yet. Suggestions and PRs welcome !
+## Future
+Other functionalities we have in mind, but did not have the time to implement within 24 hours include:
+- Cat gets hungry as time passed
+- Cat ages and grows in size as time passed
+- Dresses up the Cat, buy toys for Cat to play
+- Stats for Cat, such as Love Meter, Boredom Meter
+- More interaction feedback from Cat, different types of Cat
+
+
+## Credits
+
+This project was bootstrapped with 
+* [VSCode Webview React](https://github.com/rebornix/vscode-webview-react)
+
+from the author Rebornix, which gives us a base VS Code Plugin template that supports ReactJS create-react-app.
