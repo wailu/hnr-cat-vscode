@@ -1,10 +1,10 @@
 {
-  "name": "vscode-webview-react",
-  "version": "0.1.0",
+  "name": "hnr-cat-vscode",
+  "version": "0.0.1",
   "engines": {
     "vscode": "^1.50.0"
   },
-  "publisher": "rebornix",
+  "publisher": "wai & gan",
   "activationEvents": [
     "onView:VSCat.catView",
     "onCommand:react-webview.start"
