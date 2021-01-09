@@ -8,7 +8,12 @@ VS Cat, short for Visual Studio Cat, is an interactive plugin for Visual Studio 
 - Dragging SoCCat around the screen
 - Changing state from Idle, Active, and Sleep, depending on whether user is actively typing code, idling for a while, or inactive in VS Code.
 
-# Functionalities
+## Installation
+1. Go to VS Code Extensions
+2. Search for `VSCat` and install it
+3. VSCat will now appear in your Explorer tab
+
+## Functionalities
 
 ### Cat Idle (When you stop typing codes for 1 minute):
 ![animation-idle](Promo-Assets/animation-idle.png "Idle Cat")
