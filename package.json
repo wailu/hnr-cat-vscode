@@ -1,5 +1,5 @@
 {
-  "name": "hnr-cat-vscode",
+  "name": "VSCat",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.50.0"
