@@ -5,6 +5,7 @@ VS Cat, short for Visual Studio Cat, is an interactive plugin for Visual Studio 
 - Feeding SoCCat
 - Patting SoCCat
 - Bringing SoCCat out to different places
+- Dragging SoCCat around the screen
 - Changing state from Idle, Active, and Sleep, depending on whether user is actively typing code, idling for a while, or inactive in VS Code.
 
 # Functionalities
