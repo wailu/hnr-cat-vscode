@@ -42,8 +42,8 @@ button {
 
 button.control-button {
   width: 100%;
-  margin: 3px 0;
-   padding: 1em 2em;
+  margin: 1px 0;
+   padding: 0.1em;
    border: 2px solid var(--colorShadeA);
   border-radius: 1em;
   background: var(--colorShadeE);
